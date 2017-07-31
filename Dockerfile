@@ -5,6 +5,7 @@
 
 # Set the base image to Ubuntu
 FROM ubuntu:14.04
+FROM mysql
 
 # File Author / Maintainer
 MAINTAINER wordpress.opstree.com
@@ -14,8 +15,8 @@ RUN apt-get update
 
 ################## BEGIN INSTALLATION #####################
 # Install mysql for database
-RUN docker build -t mysqltims .
-RUN docker run -it -e mysqltims
+RUN docker build -t mysqlver1 .
+RUN docker run -it -e mysqlver1
 mysql -uroot 
 "CREATE DATABASE wordpress" 
 "CREATE USER wordpressuser@localhost IDENTIFIED BY 'password'" 
