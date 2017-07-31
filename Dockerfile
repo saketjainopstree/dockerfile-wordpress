@@ -14,16 +14,14 @@ RUN apt-get update
 
 ################## BEGIN INSTALLATION #####################
 # Install mysql for database
-RUN apt-get install -y mysql-server
-
-# Start the service or mysql
-RUN /etc/init.d/mysql start  && \
-mysql -uroot &&  \
- "CREATE DATABASE wordpress" && \
-"CREATE USER wordpressuser@localhost IDENTIFIED BY 'password'" && \
- "GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost" && \
- "FLUSH PRIVILEGES" && \
- exit
+RUN docker build -t mysqltims .
+RUN docker run -it -e mysqltims
+mysql -uroot 
+"CREATE DATABASE wordpress" 
+"CREATE USER wordpressuser@localhost IDENTIFIED BY 'password'" 
+"GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost" 
+"FLUSH PRIVILEGES" 
+exit
 
 #Install wordpress & php 5,php5 fpm,php5-mysql
 RUN cd /opt/ 
