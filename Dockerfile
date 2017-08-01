@@ -5,7 +5,6 @@
 
 # Set the base image to Ubuntu
 FROM ubuntu:14.04
-FROM mysql
 
 # File Author / Maintainer
 MAINTAINER wordpress.opstree.com
@@ -15,22 +14,26 @@ RUN apt-get update
 
 ################## BEGIN INSTALLATION #####################
 # Install mysql for database
-RUN docker build -t mysqlver1 .
-RUN docker run -it -e mysqlver1
-mysql -uroot 
-"CREATE DATABASE wordpress" 
-"CREATE USER wordpressuser@localhost IDENTIFIED BY 'password'" 
-"GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost" 
-"FLUSH PRIVILEGES" 
-exit
+#RUN apt-get install -y mysql-server
+
+# Start the service or mysql
+#RUN /etc/init.d/mysql start  && \
+#mysql -uroot &&  \
+# "CREATE DATABASE wordpress" && \
+#"#CREATE USER wordpressuser@localhost IDENTIFIED BY 'password'" && \
+ #"GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser@localhost" && \
+ #"FLUSH PRIVILEGES" && \
+# exit
 
 #Install wordpress & php 5,php5 fpm,php5-mysql
 RUN cd /opt/ 
-	RUN apt-get install wget; \
-	wget http://wordpress.org/latest.tar.gz; \
-	tar xzvf latest.tar.gz; \
-	apt-get install php5-gd libssh2-php php5-fpm php5-mysql; \
-	service php5-fpm restart
+RUN apt-get install -y wget 
+RUN  wget http://wordpress.org/latest.tar.gz 
+RUN tar xzvf latest.tar.gz 
+RUN apt-get install php5-gd libssh2-php 
+RUN php5-fpm 
+RUN php5-mysql 
+RUN service php5-fpm restart
 
 #change the directory and copy
 RUN cd wordpress; \
