@@ -30,9 +30,9 @@ RUN cd /opt/
 RUN apt-get install -y wget 
 RUN  wget http://wordpress.org/latest.tar.gz 
 RUN tar xzvf latest.tar.gz 
-RUN apt-get install php5-gd libssh2-php 
-RUN php5-fpm 
-RUN php5-mysql 
+RUN apt-get install -y php5-gd libssh2-php 
+RUN apt-get install -y php5-fpm 
+RUN apt-get install -y php5-mysql 
 RUN service php5-fpm restart
 
 #change the directory and copy
@@ -40,7 +40,7 @@ RUN cd wordpress; \
 cp wp-config-sample.php wp-config.php
 
 #Install curl and run command to generate the seceret keys
-RUN curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> /opt/wordpress/wp-config.php
+#RUN curl -s https://api.wordpress.org/secret-key/1.1/salt/ >> /opt/wordpress/wp-config.php
 
 #Install vim editor
 #RUN apt-get install vim
